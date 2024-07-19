@@ -4,41 +4,47 @@ import { getDatabase, ref, push, onValue, remove } from 'firebase/database'
 import './index.css'
 
 const appSettings = {
-  databaseURL: import.meta.env.VITE_DB_KEY,
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID
 }
 
-const app = initializeApp(appSettings)
-const database = getDatabase(app)
-const shoppingListinDB = ref(database, 'shoppingList')
+const app = initializeApp(appSettings);
+const database = getDatabase(app);
+const shoppingListinDB = ref(database, 'shoppingList');
 
 function App() {
-  const [inputValue, setInputValue] = useState('')
-  const [shoppingList, setShoppingList] = useState([])
+  const [inputValue, setInputValue] = useState('');
+  const [shoppingList, setShoppingList] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onValue(shoppingListinDB, (snapshot) => {
       if (snapshot.exists()) {
-        const itemsArray = Object.entries(snapshot.val())
-        setShoppingList(itemsArray)
+        const itemsArray = Object.entries(snapshot.val());
+        setShoppingList(itemsArray);
       } else {
-        setShoppingList([])
+        setShoppingList([]);
       }
-    })
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
   const handleAddToCart = () => {
     if (inputValue.trim()) {
-      push(shoppingListinDB, inputValue)
-      setInputValue('')
+      push(shoppingListinDB, inputValue);
+      setInputValue('');
     }
-  }
+  };
 
   const handleRemoveItem = (itemID) => {
-    const exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`)
-    remove(exactLocationOfItemInDB)
-  }
+    const exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`);
+    remove(exactLocationOfItemInDB);
+  };
 
   return (
     <div className="container">
@@ -65,7 +71,7 @@ function App() {
         )}
       </ul>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
