@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="container">
-      <img id="logo" src="src/assets/cat.png" alt="cat" />
+      <img id="logo" src="/assets/cat.png" alt="cat" />
       <input
         type="text"
         id="input-field"
