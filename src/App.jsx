@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { initializeApp } from 'firebase/app'
-import { getDatabase, ref, push, onValue, remove } from 'firebase/database'
-import './index.css'
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, push, onValue, remove } from 'firebase/database';
+import './index.css';
 
 const appSettings = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -11,7 +11,7 @@ const appSettings = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID
-}
+};
 
 const app = initializeApp(appSettings);
 const database = getDatabase(app);
